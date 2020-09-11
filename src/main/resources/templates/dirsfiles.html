@@ -6,6 +6,14 @@
 
     <p>Path:</p>
     <input type="text"  th:field="*{path}">
-
     <input type="submit" value="Add dir" />
+
+    <p>Directories:</p>
+    <table><tr><th>Date</th><th>Directory</th></tr>
+    <tr th:each="dir : ${dirlist}">
+        <td th:utext="${dir.dateTime}">dateTime</td>
+        <td th:utext="${dir.path}">path</td>
+    </tr>
+    </table>
+
 </form>
