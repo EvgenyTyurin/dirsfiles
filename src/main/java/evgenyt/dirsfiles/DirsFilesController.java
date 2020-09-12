@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Controller
 public class DirsFilesController {
@@ -44,6 +45,13 @@ public class DirsFilesController {
     public String getFilesInfo(@RequestParam(value = "dir_id") String dirId, Model model) {
         Long dir_id = Long.valueOf(dirId);
         System.out.println("Files info for dir with id=" + dir_id);
+        Optional<Dir> dirResult = dirRepository.findById(dir_id);
+        if (!dirResult.isPresent()) {
+            System.out.println("No dir in database!");
+            return "redirect:dirsfiles";
+        }
+        Dir dir = dirResult.get();
+        model.addAttribute("filelist", dir.getFiles());
         return "filesinfo";
     }
 

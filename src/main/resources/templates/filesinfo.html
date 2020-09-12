@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 
-Files info
+<p>Files:</p>
+<table border="1"><tr><th>Name</th></tr>
+    <tr th:each="file : ${filelist}">
+        <td th:utext="${file.name}">Name</td>
+    </tr>
+</table>
 
-</body>
 </html>

@@ -2,24 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
+<p>Path:</p>
 <form action="dirsfiles" method="post" th:object="${dir}">
-
-    <p>Path:</p>
     <input type="text"  th:field="*{path}">
     <input type="submit" value="Add dir" />
-
-    <p>Directories:</p>
-    <table border="1"><tr><th>Date</th><th>Directory</th><th>Files</th></tr>
-    <tr th:each="dir : ${dirlist}">
-        <td th:utext="${dir.dateTime}">dateTime</td>
-        <td th:utext="${dir.path}">path</td>
-        <td><input type="button" value="Files" th:onclick="'filesInfo(\'' + ${dir.id} + '\');'"></td>
-    </tr>
-    </table>
 </form>
+
+<p>Directories:</p>
+<table border="1"><tr><th>Date</th><th>Directory</th><th>Files</th></tr>
+<tr th:each="dir : ${dirlist}">
+    <td th:utext="${dir.dateTime}">dateTime</td>
+    <td th:utext="${dir.path}">path</td>
+    <td><input type="button" value="Files" th:onclick="'filesInfo(\'' + ${dir.id} + '\');'"></td>
+</tr>
+</table>
 
 <script>
 function filesInfo(dir_id) {
     window.location = '/filesinfo?dir_id=' + dir_id;
 }
 </script>
+
+</html>
