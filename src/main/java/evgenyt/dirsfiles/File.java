@@ -13,8 +13,15 @@ public class File {
 
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name="dir_id", nullable=false)
     private Dir dir;
 
+    public File() {
+    }
+
+    public File(String name, Dir dir) {
+        this.name = name;
+        this.dir = dir;
+    }
 }

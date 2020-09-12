@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,9 +13,11 @@ import java.util.ArrayList;
 public class DirsFilesController {
 
     private DirRepository dirRepository;
+    private FileRepository fileRepository;
 
-    public DirsFilesController(DirRepository dirRepository) {
+    public DirsFilesController(DirRepository dirRepository, FileRepository fileRepository) {
         this.dirRepository = dirRepository;
+        this.fileRepository = fileRepository;
     }
 
     @GetMapping("dirsfiles")
@@ -31,8 +34,17 @@ public class DirsFilesController {
     public String postDirsFiles(Dir dir) {
         System.out.println("Dir posted: " + dir);
         dir.setDateTime(LocalDateTime.now());
+        dir.setFilesInfo();
         dirRepository.save(dir);
+        fileRepository.saveAll(dir.getFiles());
         return "redirect:dirsfiles";
+    }
+
+    @GetMapping("filesinfo")
+    public String getFilesInfo(@RequestParam(value = "dir_id") String dirId, Model model) {
+        Long dir_id = Long.valueOf(dirId);
+        System.out.println("Files info for dir with id=" + dir_id);
+        return "filesinfo";
     }
 
 }
