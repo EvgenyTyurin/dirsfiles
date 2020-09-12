@@ -14,7 +14,7 @@ public class FileDisplay implements Comparable{
         if (fileInfo.isDirectory()) {
             size = "&#60;DIR&#62;";
         } else {
-            size = String.valueOf(fileInfo.getSize());
+            size = DirsfilesApplication.strSize(fileInfo.getSize());
         }
     }
 

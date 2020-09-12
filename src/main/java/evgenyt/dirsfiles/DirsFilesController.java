@@ -1,5 +1,7 @@
 package evgenyt.dirsfiles;
 
+import evgenyt.dirsfiles.repo.DirRepository;
+import evgenyt.dirsfiles.repo.FileRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +17,8 @@ import java.util.Optional;
 @Controller
 public class DirsFilesController {
 
-    private DirRepository dirRepository;
-    private FileRepository fileRepository;
+    private final DirRepository dirRepository;
+    private final FileRepository fileRepository;
 
     public DirsFilesController(DirRepository dirRepository, FileRepository fileRepository) {
         this.dirRepository = dirRepository;
@@ -27,9 +29,13 @@ public class DirsFilesController {
     public String getDirsFiles(Model model) {
         model.addAttribute(new Dir());
         ArrayList<Dir> dirList = new ArrayList<>();
-        dirRepository.findAll().forEach(dir -> dirList.add(dir));
+        dirRepository.findAll().forEach(dirList::add);
         System.out.println("Found dirs: " + dirList.size());
-        model.addAttribute("dirlist", dirList);
+        List<DirDisplay> displayList = new ArrayList<>();
+        for (Dir dir : dirList){
+            displayList.add(new DirDisplay(dir));
+        }
+        model.addAttribute("dirlist", displayList);
         return "dirsfiles";
     }
 
