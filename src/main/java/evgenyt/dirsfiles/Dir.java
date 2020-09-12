@@ -2,6 +2,7 @@ package evgenyt.dirsfiles;
 
 import lombok.Data;
 import javax.persistence.*;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,14 +23,12 @@ public class Dir {
     private String path;
     private LocalDateTime dateTime;
     @OneToMany(mappedBy="dir")
-    private List<File> files = new ArrayList<>();
+    private List<FileInfo> files = new ArrayList<>();
 
     public void setFilesInfo() {
-        try(Stream<Path> paths = Files.walk(Paths.get(path))) {
-            paths.map(Objects::toString)
-                .forEach(fileName -> files.add(new File(fileName, this)));
-        } catch (IOException e) {
-            e.printStackTrace();
+        File dirFile = new File(path);
+        for (File file : dirFile.listFiles()) {
+            files.add(new FileInfo(file.getName(), file.length(), file.isDirectory(),this));
         }
         System.out.println("Found files " + files.size() + " for dir " + path);
     }

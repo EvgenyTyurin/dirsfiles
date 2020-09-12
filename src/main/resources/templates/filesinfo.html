@@ -3,9 +3,11 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <p>Files:</p>
-<table border="1"><tr><th>Name</th></tr>
+<table border="1">
+    <tr><th>Файл</th><th>Размер</th></tr>
     <tr th:each="file : ${filelist}">
         <td th:utext="${file.name}">Name</td>
+        <td th:utext="${file.size}">Size</td>
     </tr>
 </table>
 

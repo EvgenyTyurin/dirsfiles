@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -51,7 +53,11 @@ public class DirsFilesController {
             return "redirect:dirsfiles";
         }
         Dir dir = dirResult.get();
-        model.addAttribute("filelist", dir.getFiles());
+        List<FileDisplay> displayFiles = new ArrayList<>();
+        for (FileInfo fileInfo : dir.getFiles())
+            displayFiles.add(new FileDisplay(fileInfo));
+        Collections.sort(displayFiles);
+        model.addAttribute("filelist", displayFiles);
         return "filesinfo";
     }
 

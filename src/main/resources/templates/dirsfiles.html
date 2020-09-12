@@ -8,19 +8,25 @@
     <input type="submit" value="Add dir" />
 </form>
 
+
 <p>Directories:</p>
-<table border="1"><tr><th>Date</th><th>Directory</th><th>Files</th></tr>
-<tr th:each="dir : ${dirlist}">
-    <td th:utext="${dir.dateTime}">dateTime</td>
-    <td th:utext="${dir.path}">path</td>
-    <td><input type="button" value="Files" th:onclick="'filesInfo(\'' + ${dir.id} + '\');'"></td>
-</tr>
-</table>
+<form>
+    <table border="1"><tr><th>Date</th><th>Directory</th><th>Files</th></tr>
+    <tr th:each="dir : ${dirlist}">
+        <td th:utext="${dir.dateTime}">dateTime</td>
+        <td th:utext="${dir.path}">path</td>
+        <td><input type="button" value="Files" th:onclick="'filesInfo(\'' + ${dir.id} + '\');'"></td>
+    </tr>
+    </table>
+
+</form>
 
 <script>
-function filesInfo(dir_id) {
-    window.location = '/filesinfo?dir_id=' + dir_id;
-}
+
+    function filesInfo(dir_id) {
+        window.location = '/filesinfo?dir_id=' + dir_id;
+    }
+
 </script>
 
 </html>
