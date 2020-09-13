@@ -1,6 +1,11 @@
 package evgenyt.dirsfiles;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+/**
+ * String utils for web display
+ */
 
 public class Utils {
 
@@ -64,5 +69,20 @@ public class Utils {
             result = -1 * result;
         return result;
     }
+
+    public static String strSize(long size) {
+        DecimalFormat df = new DecimalFormat("0.00");
+        float sizeKb = 1024.0f;
+        float sizeMb = sizeKb * sizeKb;
+        float sizeGb = sizeMb * sizeKb;
+        if (size < sizeKb)
+            return size + " b";
+        else if (size < sizeMb)
+            return df.format(size / sizeKb)+ " Kb";
+        else if (size < sizeGb)
+            return df.format(size / sizeMb) + " Mb";
+        return df.format(size / sizeGb) + " Gb";
+    }
+
 
 }

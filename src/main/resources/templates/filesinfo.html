@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 
-<p>Files:</p>
+<h3 th:text="${dirname}"></h3>
 <table border="1">
     <tr><th>Файл</th><th>Размер</th></tr>
     <tr th:each="file : ${filelist}">

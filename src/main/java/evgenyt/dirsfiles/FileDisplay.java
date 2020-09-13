@@ -2,6 +2,10 @@ package evgenyt.dirsfiles;
 
 import lombok.Data;
 
+/**
+ * Display file info on web page
+ */
+
 @Data
 public class FileDisplay implements Comparable<FileDisplay>{
     private String name;
@@ -14,7 +18,7 @@ public class FileDisplay implements Comparable<FileDisplay>{
         if (fileInfo.isDirectory()) {
             size = "&#60;DIR&#62;";
         } else {
-            size = DirsfilesApplication.strSize(fileInfo.getSize());
+            size = Utils.strSize(fileInfo.getSize());
         }
     }
 

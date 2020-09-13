@@ -3,6 +3,10 @@ package evgenyt.dirsfiles;
 import lombok.Data;
 import javax.persistence.*;
 
+/**
+ * Information about files in directory
+ */
+
 @Data
 @Entity
 public class FileInfo {

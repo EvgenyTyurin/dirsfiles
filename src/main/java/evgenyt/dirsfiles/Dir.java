@@ -7,6 +7,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Information about directory
+ */
+
 @Data
 @Entity
 public class Dir {

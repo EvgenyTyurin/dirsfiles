@@ -4,6 +4,10 @@ import lombok.Data;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Directory display on web page
+ */
+
 @Data
 public class DirDisplay {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
@@ -28,6 +32,6 @@ public class DirDisplay {
                 sizeLong += fileInfo.getSize();
             }
         }
-        size = DirsfilesApplication.strSize(sizeLong);
+        size = Utils.strSize(sizeLong);
     }
 }

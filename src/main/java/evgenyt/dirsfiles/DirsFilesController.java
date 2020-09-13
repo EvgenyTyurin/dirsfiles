@@ -8,11 +8,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+/**
+ * Web actions controller
+ */
 
 @Controller
 public class DirsFilesController {
@@ -42,10 +48,12 @@ public class DirsFilesController {
     @PostMapping("dirsfiles")
     public String postDirsFiles(Dir dir) {
         System.out.println("Dir posted: " + dir);
-        dir.setDateTime(LocalDateTime.now());
-        dir.setFilesInfo();
-        dirRepository.save(dir);
-        fileRepository.saveAll(dir.getFiles());
+        if (!dir.getPath().equals("") && Files.exists(Paths.get(dir.getPath()))) {
+            dir.setDateTime(LocalDateTime.now());
+            dir.setFilesInfo();
+            dirRepository.save(dir);
+            fileRepository.saveAll(dir.getFiles());
+        }
         return "redirect:dirsfiles";
     }
 
@@ -64,6 +72,7 @@ public class DirsFilesController {
             displayFiles.add(new FileDisplay(fileInfo));
         Collections.sort(displayFiles);
         model.addAttribute("filelist", displayFiles);
+        model.addAttribute("dirname", dir.getPath());
         return "filesinfo";
     }
 
