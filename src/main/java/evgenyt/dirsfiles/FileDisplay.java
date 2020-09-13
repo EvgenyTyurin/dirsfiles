@@ -3,7 +3,7 @@ package evgenyt.dirsfiles;
 import lombok.Data;
 
 @Data
-public class FileDisplay implements Comparable{
+public class FileDisplay implements Comparable<FileDisplay>{
     private String name;
     private String size;
     private boolean isDirectory;
@@ -19,9 +19,11 @@ public class FileDisplay implements Comparable{
     }
 
     @Override
-    public int compareTo(Object o) {
-        FileDisplay otherFile = (FileDisplay) o;
+    public int compareTo(FileDisplay otherFile) {
         int result = Boolean.compare(otherFile.isDirectory, isDirectory);
-        return result;
+        if (result != 0)
+            return result;
+        return Utils.compareFileNames(name, otherFile.name);
     }
+
 }
